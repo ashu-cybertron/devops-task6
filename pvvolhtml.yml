@@ -1,0 +1,17 @@
+apiVersion: v1
+
+kind: PersistentVolume
+
+metadata:
+  name: html-pv-vol
+  labels:
+    type: local
+
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/sdr/data/website"

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: html-deploy
+  labels:
+    app: webserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      name: html-deploy
+      labels:
+        app: webserver
+    spec:
+      volumes:
+        - name: html-pv-vol
+          persistentVolumeClaim:
+            claimName: html-pv-vol-claim
+        
+      containers:
+        - name: html-deploy
+          image: rajnishthegreat/html:v1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: "/var/log/httpd"
+              name: html-pv-vol
